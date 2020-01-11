@@ -147,11 +147,6 @@ clearing.addEventListener('click',clear);
 const key = document.querySelector("#enter");
 key.addEventListener('click',bestEnter);
 
-
-   
-
-
-
 function bestEnter(){
     let expression = test.textContent;
     let operators1 = new Set();
@@ -213,7 +208,23 @@ function bestEnter(){
             }
         }
     }
+        output = expression;
         test.textContent = expression;
+}
+
+const neg = document.querySelector("#negate");
+neg.addEventListener('click',intoNegative);
+
+let allOperators = new Set();
+allOperators.add("÷");
+allOperators.add("*");
+allOperators.add("-");
+allOperators.add("+");
+function intoNegative(){
+    if(output.length > 0 && !allOperators.has(output.substring(0,1))){
+        output = "-"+output;
+    }
+    test.textContent = output;
 }
 
 
