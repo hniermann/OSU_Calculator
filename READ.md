@@ -1,0 +1,1 @@
+This is a project attempts to design and implement a Scientific Calculator using Javascript. While currently under progress, I wish to hopefully add advanced Algebra, Calculus, and Linear Algebra functions.
