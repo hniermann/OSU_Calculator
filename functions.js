@@ -216,13 +216,32 @@ const neg = document.querySelector("#negate");
 neg.addEventListener('click',intoNegative);
 
 let allOperators = new Set();
-allOperators.add("÷");
-allOperators.add("*");
-allOperators.add("-");
-allOperators.add("+");
+allOperators.add('÷');
+allOperators.add('*');
+allOperators.add('-');
+allOperators.add('+');
 function intoNegative(){
-    if(output.length > 0 && !allOperators.has(output.substring(0,1))){
-        output = "-"+output;
+    let chars = output.split("");
+    let doit = true;
+    if(output.length > 0 && chars[0] != '-'){
+        for(let i = 0;i<chars.length;i++){
+            if(allOperators.has(chars[i])){
+                doit = false;
+            }
+        }   
+        if(doit){
+            output = "-"+output;
+        }
+    }
+    else if(output.length > 0){
+        for(let i = 1;i<chars.length;i++){
+            if(allOperators.has(chars[i])){
+                doit = false;
+            }
+        }   
+        if(doit){
+        output = output.substring(1);
+        }
     }
     test.textContent = output;
 }
