@@ -266,17 +266,68 @@ function clickDecimal(){
     let lastNumberChars = lastNumber.split("");
     let decimal = false;
     let k = 0;
-    while(!decimal && k != lastNumberChars.length-1){
-        if(lastNumberChars[k] == '.'){
-            decimal = true;
-         }
-         k++;
-    }
-    if(!decimal){
-        output = output+".";
+    if(output.length > 0){
+        while(!decimal && k != lastNumberChars.length-1){
+            if(lastNumberChars[k] == '.'){
+                decimal = true;
+            }
+            k++;
+        }
+        if(!decimal){
+            output = output+".";
+        }
+    }   
+    else{
+        output = ".";
     }
     
     test.textContent = output;
 }
 
+const perc = document.querySelector("#percent");
+perc.addEventListener("click",changeToPercent);
+
+function changeToPercent(){
+    let chars = output.split("");
+    let doit = true;
+    for(let i = 0;i<chars.length;i++){
+        if(allOperators.has(chars[i])){
+            doit = false;
+        }
+    }   
+    if(doit){
+        let decimals = false;
+        let decIndex;
+        for(let i = 0;i<chars.length;i++){
+            if(chars[i] == '.'){
+                decIndex = i;
+                decimals = true;
+                break;
+            }
+        } 
+        if(decimals){
+            if(decIndex == 0){
+                output = "0.00"+output.substring(1);
+            }
+            if(decIndex == 1){
+                output = "0.0"+output.substring(0,1)+output.substring(2);
+            }
+            else{
+                output = output.substring(0,decIndex-2)+"."+output.substring(decIndex-2,decIndex)+output.substring(decIndex+1);
+            }
+        }
+        else{
+            if(output.length > 2){
+                output = output.substring(0,output.length-2)+"."+output.substring(output.length-2);
+            }
+            else if(output.length > 1){
+                output = "."+output;
+            }
+            else{
+                output = ".0"+output;
+            }
+        }
+    }
+    test.textContent = output;
+}
 
