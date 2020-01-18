@@ -210,6 +210,9 @@ function bestEnter(){
     }
         output = expression;
         test.textContent = expression;
+        if(output == "Stop trying to break me!"){
+            output = "";
+        }
 }
 
 const neg = document.querySelector("#negate");
@@ -243,6 +246,36 @@ function intoNegative(){
         output = output.substring(1);
         }
     }
+    test.textContent = output;
+}
+
+const dec = document.querySelector("#decimal");
+dec.addEventListener('click',clickDecimal);
+
+function clickDecimal(){
+    let chars = output.split("");
+    let lastOperator = -1;
+    for(let i = output.length-1;i > -1;i--){
+        if(allOperators.has(chars[i])){
+            lastOperator = i;
+            break;
+        }
+    }
+    
+    let lastNumber = output.substring(lastOperator+1);
+    let lastNumberChars = lastNumber.split("");
+    let decimal = false;
+    let k = 0;
+    while(!decimal && k != lastNumberChars.length-1){
+        if(lastNumberChars[k] == '.'){
+            decimal = true;
+         }
+         k++;
+    }
+    if(!decimal){
+        output = output+".";
+    }
+    
     test.textContent = output;
 }
 
